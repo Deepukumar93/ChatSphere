@@ -9,8 +9,8 @@ function App() {
      <div className='bg-red-600'>Anand</div>
      <button className="btn btn-accent">Accent</button>
      <Routes>
-      <Route path="/" exact element={<Home/>}/>
-      <Route path="/about" exact element={<About/>}/>
+      {/* <Route path="/" exact element={<Home/>}/>
+      <Route path="/about" exact element={<About/>}/> */}
      </Routes>
     </>
   )
