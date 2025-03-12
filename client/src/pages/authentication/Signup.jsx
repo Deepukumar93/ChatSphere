@@ -42,12 +42,28 @@
 
 // export default signup
 
-import React from "react";
+import React, { useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
+  
+  const handleInputChange = (e) => {
+    setSignupData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  console.log(signupData)
+  
   return (
     <div className="relative w-full h-screen flex justify-center items-center">
       {/* Background Video */}
@@ -72,22 +88,22 @@ const Signup = () => {
         
         <label className="input input-bordered flex items-center gap-2 w-full">
           <CiUser className="text-white" />
-          <input type="text" className="grow w-full bg-transparent text-white" placeholder="Full Name" />
+          <input type="text" name="fullName" className="grow w-full bg-transparent text-white" placeholder="Full Name" onChange={handleInputChange} />
         </label>
 
         <label className="input input-bordered flex items-center gap-2 w-full">
           <CiUser className="text-white" />
-          <input type="text" className="grow w-full bg-transparent text-white" placeholder="Username" />
+          <input type="text" name="username" className="grow w-full bg-transparent text-white" placeholder="Username" onChange={handleInputChange} />
         </label>
 
         <label className="input input-bordered flex items-center gap-2 w-full">
           <RiLockPasswordLine className="text-white" />
-          <input type="password" className="grow w-full bg-transparent text-white" placeholder="Password" />
+          <input type="password" name="password" className="grow w-full bg-transparent text-white" placeholder="Password" onChange={handleInputChange} />
         </label>
 
         <label className="input input-bordered flex items-center gap-2 w-full">
           <RiLockPasswordLine className="text-white" />
-          <input type="password" className="grow w-full bg-transparent text-white" placeholder="Confirm Password" />
+          <input type="password" name="confirmPassword" className="grow w-full bg-transparent text-white" placeholder="Confirm Password" onChange={handleInputChange} />
         </label>
 
         <button className="btn btn-active btn-primary w-full">Sign up</button>
