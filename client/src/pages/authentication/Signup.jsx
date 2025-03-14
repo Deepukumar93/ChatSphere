@@ -73,7 +73,7 @@ const Signup = () => {
         loop
         muted
       >
-        <source src="/video/space1.mp4" type="video/mp4" />
+        <source src="/video/space2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
