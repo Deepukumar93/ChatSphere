@@ -4,7 +4,7 @@ const User = () => {
     return (
         <div className='flex gap-2 items-center'>
             {/* Corrected className usage */}
-            <div className="avatar online">
+            <div class="avatar avatar-online">
                 <div className="w-9 rounded-full ">
                     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="User Avatar" />
                 </div>
