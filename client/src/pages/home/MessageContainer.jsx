@@ -28,7 +28,7 @@ const MessageContainer = () => {
           <input
             type="text"
             placeholder="Type here....."
-            className="input input-bordered input-primary w-full"
+            className="input input-bordered input-primary w-full "
           />
           
           <button class="btn btn-square btn-outline bg-primary">
