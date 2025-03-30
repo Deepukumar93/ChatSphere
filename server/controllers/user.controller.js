@@ -37,22 +37,22 @@ export const register = asyncHandler(async (req, res, next) => {
     const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES })
 
     res
-    .status(200)
-    .cookie("token",{
-        expire: new Date(
-            Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-        ),
-        httpOnly:true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite:'None'
-    })
-    .json({
-        success: true,
-        responseData: {
-            newUser,
-            token
-        }
-    });
+        .status(200)
+        .cookie("token", token, {
+            expire: new Date(
+                Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+            ),
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: 'None'
+        })
+        .json({
+            success: true,
+            responseData: {
+                newUser,
+                token
+            }
+        });
 
 
     res.send("hello register")
@@ -83,26 +83,52 @@ export const login = asyncHandler(async (req, res, next) => {
 
 
     res
-    .status(200)
-    .cookie("token",{
-        expire: new Date(
-            Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-        ),
-        httpOnly:true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite:'None'
-    })
-    .json({
-        success: true,
-        responseData: {
-            user,
-            token
-        }
-    });
+        .status(200)
+        .cookie("token",token, {
+            expire: new Date(
+                Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+            ),
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: 'None'
+        })
+        .json({
+            success: true,
+            responseData: {
+                user,
+                token
+            }
+        });
 
 
     // res.send("hello register")
 })
 
+export const getProfile = asyncHandler(async (req, res, next) => {
+
+    const userId = req.user._id;
+    console.log(userId);
+
+    const profile = await User.findById(userId);
+
+    res.status(200).json({
+        success: true,
+        responseData: profile,
+    });
+})
+
+export const logout = asyncHandler(async (req, res, next) => {
+
+    res
+    .status(200)
+    .cookie("token", "", {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .json({
+      success: true,
+      message:"logout successfull"
+    });
+})
 
 
