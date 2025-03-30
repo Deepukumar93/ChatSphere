@@ -14,7 +14,9 @@ console.log(PORT)
 
 // routes
     import userRoute from './routes/user.route.js'
+    import messageRoute from './models/message.model.js';
     app.use('/api/v1/user',userRoute)
+    app.use('/api/v1/message',messageRoute)
 
 // error middleware
 import { errorMiddleware } from './middlewares/error.middleware.js';
