@@ -41,3 +41,33 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
 
 });
 
+export const getMessage = asyncHandler(async (req, res, next) => {
+    const myId = req.user._id;
+    const otherParticipantId = req.params.otherParticipantId;
+    console.log(myId,otherParticipantId)
+    
+
+    if (!myId || !otherParticipantId) {
+        return next(new errorHandler("All fields are required", 400));
+    }
+
+    let conversation = await Conversation.findOne({
+        participants: { $all: [myId, otherParticipantId] },
+    });
+
+    if (!conversation) {
+        conversation = await Conversation.create({
+            participants: [senderId, receiverId],
+        });
+    }
+
+   
+    // socket.io
+
+    res.status(200).json({
+        success: true,
+        responseData:conversation,
+    });
+
+});
+
