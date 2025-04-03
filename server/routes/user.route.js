@@ -11,3 +11,4 @@ router.get('/get-profile',isAuthenticated,getProfile)
 router.get('/get-other-users',isAuthenticated,getOtherUsers)
 
 export default router;
+
