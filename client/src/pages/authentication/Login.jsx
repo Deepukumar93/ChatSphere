@@ -2,23 +2,32 @@ import React, { useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-hot-toast"
+import { useDispatch } from 'react-redux'
+import { loginUserThunk } from "../../store/slice/user/user.thunk";
 const Login = () => {
 
+  const dispatch = useDispatch();
   const [loginData, setLoginData] = useState({
-     
-      username: "",
-      password: "",
-      
-    });
-    
-    const handleInputChange = (e) => {
-      setLoginData((prev) => ({
-        ...prev,
-        [e.target.name]: e.target.value,
-      }));
-    };
-    console.log(loginData)
+
+    username: "",
+    password: "",
+
+  });
+
+  const handleInputChange = (e) => {
+    setLoginData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  // console.log(loginData)
+
+  const handleLogin = async () => {
+    // console.log("login")
+    // toast.success("Login Successfull")
+    await dispatch(loginUserThunk(loginData))
+  }
   return (
     <div className="relative w-full h-screen flex justify-center items-center">
       {/* Background Video */}
@@ -55,11 +64,11 @@ const Login = () => {
           <input
             type="password"
             className="grow w-full bg-transparent text-white placeholder-gray-300"
-            placeholder="Password" name="password" nChange={handleInputChange}
+            placeholder="Password" name="password" onChange={handleInputChange}
           />
         </label>
 
-        <button className="btn btn-active btn-primary w-full">Login</button>
+        <button onClick={handleLogin} className="btn btn-active btn-primary w-full">Login</button>
 
         <p className="text-center text-white text-sm">
           Don't have an account?{" "}
