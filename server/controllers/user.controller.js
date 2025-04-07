@@ -7,8 +7,8 @@ import jwt from "jsonwebtoken";
 
 export const register = asyncHandler(async (req, res, next) => {
 
-    const { fullName, username, password, email, gender, } = req.body;
-    if (!fullName || !username || !password || !email || !gender) {
+    const { fullName, username, password, confirmPassword, gender, } = req.body;
+    if (!fullName || !username || !password || ! confirmPassword || !gender ) {
         return next(new errorHandler("all  field are required ", 400))
 
     }
@@ -89,8 +89,9 @@ export const login = asyncHandler(async (req, res, next) => {
                 Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
             ),
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: 'None'
+            secure: true,
+            sameSite: 'None',
+            domain:process.env.CLIENT_URL
         })
         .json({
             success: true,
