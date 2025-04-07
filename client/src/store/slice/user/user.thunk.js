@@ -6,9 +6,9 @@ export const loginUserThunk = createAsyncThunk("userfetchById", async ({ usernam
     try {
         const response = await axiosInstance.post('/user/login', {
             username,
-            // password
+            password
         })
-        console.log(response)
+        // console.log(response)
         return response.data
 
     } catch (error) {
