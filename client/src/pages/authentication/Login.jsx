@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast"
+// import { toast } from "react-hot-toast"
 import { useDispatch } from 'react-redux'
 import { loginUserThunk } from "../../store/slice/user/user.thunk";
 const Login = () => {
