@@ -24,8 +24,8 @@ const Login = () => {
   // console.log(loginData)
 
   const handleLogin = async () => {
-    // console.log("login")
-    // toast.success("Login Successfull")
+    console.log("login")
+    toast.success("Login Successfull")
     await dispatch(loginUserThunk(loginData))
   }
   return (
