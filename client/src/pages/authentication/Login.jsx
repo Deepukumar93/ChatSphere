@@ -21,7 +21,7 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  // console.log(loginData)
+  console.log(loginData)
 
   const handleLogin = async () => {
     console.log("login")
