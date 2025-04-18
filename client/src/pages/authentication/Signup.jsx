@@ -1,46 +1,4 @@
-// import React from 'react'
-// import { CiUser } from "react-icons/ci";
-// import { RiLockPasswordLine } from "react-icons/ri";
-// import { Link } from 'react-router-dom';
 
-// const signup = () => {
-//   return (
-//     <div className="flex justify-center items-center min-h-screen p-5">
-//             <div className="max-w-[30rem] w-full flex flex-col gap-5 bg-base-200 p-6 rounded-lg">
-//                 <h2 className='font-xl font-semibold'>Please signup.....</h2>
-//                 <label className="input input-bordered flex items-center gap-2 w-full">
-//                     <CiUser />
-//                     <input type="text" className="grow w-full" placeholder="fullname" />
-//                 </label>
-//                 <label className="input input-bordered flex items-center gap-2 w-full">
-//                     <CiUser />
-//                     <input type="text" className="grow w-full" placeholder="Username" />
-//                 </label>
-
-//                 <label className="input input-bordered flex items-center gap-2 w-full">
-//                     <RiLockPasswordLine />
-//                     <input type="password" className="grow w-full" placeholder="Password" />
-//                 </label>
-//                 <label className="input input-bordered flex items-center gap-2 w-full">
-//                     <RiLockPasswordLine />
-//                     <input type="password" className="grow w-full" placeholder=" Confirm Password" />
-//                 </label>
-
-//                 <button className="btn btn-active btn-primary w-full">Sign up</button>
-//                 <p className="text-center text-sm">
-//                     Already  have an account?{" "}
-//                     <Link to="/login" className="text-blue-500 hover:underline">
-//                         Login
-//                     </Link>
-//                 </p>
-
-//             </div>
-//         </div>
-
-//   )
-// }
-
-// export default signup
 
 import React, { useState } from "react";
 import { CiUser } from "react-icons/ci";
@@ -69,9 +27,9 @@ const Signup = () => {
   };
   // console.log(signupData)
 
-  // const handleSignup = async () => {
-  //   await dispatch(registerUserThunk(signupData))
-  // }
+  const handleSignup = async () => {
+    await dispatch(registerUserThunk(signupData))
+  }
 
   return (
     <div className="relative w-full h-screen flex justify-center items-center">
