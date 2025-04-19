@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 export const register = asyncHandler(async (req, res, next) => {
 
     const { fullName, username, password, confirmPassword, gender, } = req.body;
-    if (!fullName || !username || !password || ! confirmPassword || !gender ) {
+    if (!fullName || !username || !email || !password || ! confirmPassword || !gender ) {
         return next(new errorHandler("all  field are required ", 400))
 
     }
