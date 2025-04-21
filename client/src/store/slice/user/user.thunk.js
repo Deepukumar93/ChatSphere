@@ -6,14 +6,15 @@ export const loginUserThunk = createAsyncThunk("user/login", async ({ username, 
     try {
         const response = await axiosInstance.post('/user/login', {
             username,
-            // password
+            password
         })
-        toast.success("Login Successfull")
+        // console.log(response)
+        // toast.success("Login Successfull")
         console.log(response)
         return response.data
 
     } catch (error) {
-        console.error(error)
+        console.error(error?.response?.data?.errMessage)
         // const errorOutput = error?.response?.data?.errMessage;
         // toast.error(errorOutput);
         // return rejectWithValue(errorOutput);
