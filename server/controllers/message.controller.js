@@ -63,7 +63,7 @@ export const getMessages = asyncHandler(async (req, res, next) => {
     }
 
    
-    socket.io
+    // socket.io
 
     res.status(200).json({
         success: true,

@@ -7,8 +7,8 @@ import jwt from "jsonwebtoken";
 
 export const register = asyncHandler(async (req, res, next) => {
 
-    const { fullName, username, password, confirmPassword, gender, } = req.body;
-    if (!fullName || !username || !email || !password || ! confirmPassword || !gender ) {
+    const { fullName, username,email, password, gender, } = req.body;
+    if (!fullName || !username || !email || !password || !gender) {
         return next(new errorHandler("all  field are required ", 400))
 
     }
@@ -25,8 +25,8 @@ export const register = asyncHandler(async (req, res, next) => {
     const newUser = await User.create({
         fullName,
         username,
-        password: hashedPassword,
         email,
+        password: hashedPassword,
         gender,
         avatar
     })
@@ -45,7 +45,8 @@ export const register = asyncHandler(async (req, res, next) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: 'None'
-        })
+          })
+          
         .json({
             success: true,
             responseData: {
@@ -84,14 +85,14 @@ export const login = asyncHandler(async (req, res, next) => {
 
     res
         .status(200)
-        .cookie("token",token, {
+        .cookie("token", token, {
             expire: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
             ),
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            domain:process.env.CLIENT_URL
+            // domain: process.env.CLIENT_URL
         })
         .json({
             success: true,
@@ -102,13 +103,13 @@ export const login = asyncHandler(async (req, res, next) => {
         });
 
 
-    // res.send("hello register")
+    res.send("hello login")
 })
 
 export const getProfile = asyncHandler(async (req, res, next) => {
 
     const userId = req.user._id;
-    console.log(userId);
+    // console.log(userId);
 
     const profile = await User.findById(userId);
 
@@ -121,24 +122,24 @@ export const getProfile = asyncHandler(async (req, res, next) => {
 export const logout = asyncHandler(async (req, res, next) => {
 
     res
-    .status(200)
-    .cookie("token", "", {
-      expires: new Date(Date.now()),
-      httpOnly: true,
-    })
-    .json({
-      success: true,
-      message:"logout successfull"
-    });
+        .status(200)
+        .cookie("token", "", {
+            expires: new Date(Date.now()),
+            httpOnly: true,
+        })
+        .json({
+            success: true,
+            message: "logout successfull"
+        });
 })
 
 export const getOtherUsers = asyncHandler(async (req, res, next) => {
     const otherUsers = await User.find({ _id: { $ne: req.user._id } });
-  
+
     res.status(200).json({
-      success: true,
-      responseData: otherUsers,
+        success: true,
+        responseData: otherUsers,
     });
-  });
+});
 
 
