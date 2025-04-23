@@ -27,9 +27,9 @@ const Signup = () => {
   };
   // console.log(signupData)
 
-  const handleSignup = async () => {
-    await dispatch(registerUserThunk(signupData))
-  }
+  // const handleSignup = async () => {
+  //   await dispatch(registerUserThunk(signupData))
+  // }
 
   return (
     <div className="relative w-full h-screen flex justify-center items-center">
