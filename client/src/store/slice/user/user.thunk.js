@@ -22,15 +22,20 @@ export const loginUserThunk = createAsyncThunk("user/login", async ({ username, 
     }
 });
 
-export const registerUserThunk = createAsyncThunk("user/signup", async ({ fullName, username, password,gender }, { rejectWithValue }) => {
+export const registerUserThunk = createAsyncThunk("user/signup", async ({ fullName, username,email, password,gender }, { rejectWithValue }) => {
     try {
         const response = await axiosInstance.post('/user/register', {
             fullName,
             username,
+            email,
             password,
             gender
         })
-        toast.success("Account created Successfully!")
+        console.log(fullName,
+            username,
+            password,
+            gender)
+        // toast.success("Account created Successfully!")
         // console.log(response)
         return response.data
 
