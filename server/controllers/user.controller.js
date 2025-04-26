@@ -136,10 +136,10 @@ export const logout = asyncHandler(async (req, res, next) => {
 export const getOtherUsers = asyncHandler(async (req, res, next) => {
     const otherUsers = await User.find({ _id: { $ne: req.user._id } });
 
-    res.status(200).json({
-        success: true,
-        responseData: otherUsers,
-    });
+    // res.status(200).json({
+    //     success: true,
+    //     responseData: otherUsers,
+    // });
 });
 
 
