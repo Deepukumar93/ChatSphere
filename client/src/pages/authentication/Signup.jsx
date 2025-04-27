@@ -123,11 +123,13 @@
 import React, { useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUserThunk } from "../../store/slice/user/user.thunk";
 
 const Signup = () => {
+
+  const nevigate = useNavigate()
   const dispatch = useDispatch();
 
   const [signupData, setSignupData] = useState({
@@ -152,7 +154,11 @@ const Signup = () => {
       return;
     }
 
-    await dispatch(registerUserThunk(signupData));
+    const response = await dispatch(registerUserThunk(signupData));
+    // console.log(response)
+    if(response?.payload?.success){
+      nevigate("/")
+    }
   };
 
   return (

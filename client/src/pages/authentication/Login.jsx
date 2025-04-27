@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast"
 import { useDispatch } from 'react-redux'
 import { loginUserThunk } from "../../store/slice/user/user.thunk";
 const Login = () => {
 
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [loginData, setLoginData] = useState({
 
@@ -26,7 +27,10 @@ const Login = () => {
   const handleLogin = async () => {
     // console.log("login")
     toast.success("Login Successfull")
-    await dispatch(loginUserThunk(loginData))
+    const response =  await dispatch(loginUserThunk(loginData))
+    if(response?.payload?.success){
+      navigate("/")
+    }
   }
   return (
     <div className="relative w-full h-screen flex justify-center items-center">
