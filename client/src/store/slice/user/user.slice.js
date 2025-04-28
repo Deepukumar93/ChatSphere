@@ -3,10 +3,10 @@ import { loginUserThunk, registerUserThunk,logoutUserThunk,getUserProfileThunk }
 
 const initialState = {
   isAuthenticated: false,
-  screenLoading: false,
+  
   userProfile: null,
   buttonLoading: false,
-  screenLoading: false
+  screenLoading: true
 };
 
 export const userSlice = createSlice({

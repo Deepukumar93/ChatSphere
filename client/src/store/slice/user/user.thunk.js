@@ -10,7 +10,7 @@ export const loginUserThunk = createAsyncThunk("user/login", async ({ username, 
         })
         // console.log(response)
         // toast.success("Login Successfull")
-        console.log(response)
+        // console.log(response)
         return response.data
 
     } catch (error) {
