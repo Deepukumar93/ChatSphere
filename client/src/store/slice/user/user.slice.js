@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUserThunk, registerUserThunk,logoutUserThunk,getUserProfileThunk } from './user.thunk';
+import { loginUserThunk, registerUserThunk,logoutUserThunk,getUserProfileThunk,getOtherUserThunk } from './user.thunk';
 
 const initialState = {
   isAuthenticated: false,
-  
+  otherUsers:null,
   userProfile: null,
+  selectedUser:null,
   buttonLoading: false,
   screenLoading: true
 };
@@ -13,6 +14,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setSelectedUser: (state, action) => {
+      state.selectedUser = action.payload;
+    },
+    
 
   },
   extraReducers: (builder) => {
@@ -56,12 +61,24 @@ export const userSlice = createSlice({
       state.buttonLoading = false
     });
 
+    // get-other-users
+    builder.addCase(getOtherUserThunk.pending, (state, action) => {
+      state.screenLoading = false
+    });
+    builder.addCase(getOtherUserThunk.fulfilled, (state, action) => {
+      state.otherUsers  = action.payload?.responseData
+      state.screenLoading = false
+      console.log(action.payload)
+    });
+    builder.addCase(getOtherUserThunk.rejected, (state, action) => {
+      state.screenLoading = false
+    });
+
     //get profile  user
     builder.addCase(getUserProfileThunk.pending, (state, action) => {
       state.screenLoading = true
     });
     builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
-      // state.userProfile = null
       state.isAuthenticated = true
       state.screenLoading = false
       console.log(action.payload)
@@ -74,6 +91,6 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { } = userSlice.actions
+export const { setSelectedUser} = userSlice.actions
 
 export default userSlice.reducer

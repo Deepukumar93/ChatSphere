@@ -1,20 +1,21 @@
 import React from 'react';
 
-const User = () => {
-    return (
-        <div className='flex gap-2 items-center'>
-            {/* Corrected className usage */}
-            <div class="avatar avatar-online">
-                <div className="w-9 rounded-full ">
-                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="User Avatar" />
-                </div>
-            </div>
-            <div>
-                <h1 className='line-clamp-1'>Fullname</h1>
-                <p className='text-xs'>username</p>
-            </div>
+const User = ({ userDetails }) => {
+  console.log(userDetails);
+
+  return (
+    <div className="flex gap-5 items-center hover:bg-gray-700 rounded-lg py-1 px-2 cursor-pointer">
+      <div className="avatar online">
+        <div className="w-12 rounded-full">
+          <img src={userDetails?.avatar}alt="User Avatar" />
         </div>
-    );
+      </div>
+      <div>
+        <h2 className="line-clamp-1">{userDetails?.fullName}</h2>
+        <p className="text-xs">{userDetails?.username}</p>
+      </div>
+    </div>
+  );
 };
 
 export default User;

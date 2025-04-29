@@ -4,7 +4,7 @@ import './App.css';
 import {Toaster} from 'react-hot-toast'
 // import {Login} from './store/slice/user/user.slice'
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserProfileThunk } from './store/slice/user/user.thunk';
+import { getUserProfileThunk,getOtherUserThunk } from './store/slice/user/user.thunk';
 function App() {
 
   // const {isAuthenticated} = useSelector(state=>state.userReducer)
@@ -14,6 +14,7 @@ function App() {
 useEffect(() => {
   (async () => {
     await dispatch(getUserProfileThunk());
+    await dispatch(getOtherUserThunk());
   })();
 }, []);
 
