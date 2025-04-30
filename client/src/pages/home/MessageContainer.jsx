@@ -1,27 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import User from './User'
 import Message from './Message'
 import { IoMdSend } from "react-icons/io";
+import { useDispatch,useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+import { getMessageThunk } from '../../store/slice/message/message.thunk';
 
 const MessageContainer = () => {
+
+  const dispatch = useDispatch();
+  const { selectedUser } = useSelector((state) => state.userReducer);
+
+useEffect(() => {
+  if (!selectedUser?._id) return;
+
+  dispatch(getMessageThunk({ receiverId: selectedUser?._id }));
+}, [selectedUser]);
+
+
   return (
     <div className="h-screen w-full flex flex-col">
       <div className=" p-2 border-b border-b-white/10">
-        <User />
+        <User userDetails={selectedUser}/>
       </div>
       <div className='h-full overflow-y-auto'>
         <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
+        
       </div>
       <div>
         <div className="w-full p-3 flex gap-2">

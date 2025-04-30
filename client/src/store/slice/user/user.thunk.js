@@ -9,15 +9,15 @@ export const loginUserThunk = createAsyncThunk("user/login", async ({ username, 
             password
         })
         // console.log(response)
-        // toast.success("Login Successfull")
+        toast.success("Login Successfull")
         // console.log(response)
         return response.data
 
     } catch (error) {
         console.error(error?.response?.data?.errMessage)
-        // const errorOutput = error?.response?.data?.errMessage;
-        // toast.error(errorOutput);
-        // return rejectWithValue(errorOutput);
+        const errorOutput = error?.response?.data?.errMessage;
+        toast.error(errorOutput);
+        return rejectWithValue(errorOutput);
 
     }
 });
@@ -75,7 +75,7 @@ export const getUserProfileThunk = createAsyncThunk("user/getProfile", async (_,
     } catch (error) {
         console.error(error)
         const errorOutput = error?.response?.data?.errMessage;
-        // toast.error(errorOutput);
+        toast.error(errorOutput);
         return rejectWithValue(errorOutput);
     }
 });
@@ -87,7 +87,7 @@ export const getOtherUserThunk = createAsyncThunk("user/getOtherUser", async (_,
     } catch (error) {
         console.error(error)
         const errorOutput = error?.response?.data?.errMessage;
-        // toast.error(errorOutput);
+        toast.error(errorOutput);
         return rejectWithValue(errorOutput);
     }
 });
