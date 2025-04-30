@@ -68,7 +68,7 @@ export const userSlice = createSlice({
     builder.addCase(getOtherUserThunk.fulfilled, (state, action) => {
       state.otherUsers  = action.payload?.responseData
       state.screenLoading = false
-      console.log(action.payload)
+      // console.log(action.payload)
     });
     builder.addCase(getOtherUserThunk.rejected, (state, action) => {
       state.screenLoading = false
@@ -81,7 +81,7 @@ export const userSlice = createSlice({
     builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
       state.isAuthenticated = true
       state.screenLoading = false
-      console.log(action.payload)
+      // console.log(action.payload)
     });
     builder.addCase(getUserProfileThunk.rejected, (state, action) => {
       state.screenLoading = false

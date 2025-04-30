@@ -58,7 +58,8 @@ export const getMessages = asyncHandler(async (req, res, next) => {
 
     if (!conversation) {
         conversation = await Conversation.create({
-            participants: [senderId, receiverId],
+            // participants: [senderId, receiverId],
+            participants: [myId, otherParticipantId],
         });
     }
 

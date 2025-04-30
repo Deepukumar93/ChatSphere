@@ -19,7 +19,7 @@ export const messageSlice = createSlice({
       state.buttonLoading = true
     });
     builder.addCase(sendMessageThunk.fulfilled, (state, action) => {
-        console.log(action.payload)
+        // console.log(action.payload)
     //   state.userProfile = action.payload?.responseData.user
     //   state.isAuthenticated = true
       state.buttonLoading = false
@@ -33,6 +33,7 @@ export const messageSlice = createSlice({
       });
       builder.addCase(getMessageThunk.fulfilled, (state, action) => {
         console.log(action.payload)
+        state.messages = action.payload?.responseData?.messages;
         // state.userProfile = action.payload?.responseData.user
         state.isAuthenticated = true
         state.buttonLoading = false

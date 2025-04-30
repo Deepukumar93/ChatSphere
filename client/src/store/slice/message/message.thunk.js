@@ -2,18 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast"
 import { axiosInstance } from "../../../components/utilities/axiosInstance";
 
-export const sendMessageThunk = createAsyncThunk("message/send", async ({ recieverId, message }, { rejectWithValue }) => {
+export const sendMessageThunk = createAsyncThunk("message/send", async ({ receiverId, message }, { rejectWithValue }) => {
     try {
-        const response = await axiosInstance.post(`/user/login${recieverId}`, {
-           message
-        })
-        // console.log(response)
-        // toast.success("Login Successfull")
-        // console.log(response)
+        await axiosInstance.post(`/message/send-message`, { receiverId, message });
+
         return response.data
 
     } catch (error) {
-        console.error(error?.response?.data?.errMessage)
+        console.error(error)
         const errorOutput = error?.response?.data?.errMessage;
         toast.error(errorOutput);
         return rejectWithValue(errorOutput);
@@ -21,13 +17,15 @@ export const sendMessageThunk = createAsyncThunk("message/send", async ({ reciev
     }
 });
 
-export const getMessageThunk = createAsyncThunk("message/get", async ({ recieverId, }, { rejectWithValue }) => {
+export const getMessageThunk = createAsyncThunk("message/get", async ({ receiverId, }, { rejectWithValue }) => {
     try {
-        const response = await axiosInstance.getS(`/message/get-messages${recieverId}`)
+        const response = await axiosInstance.get(`/message/get-messages/${receiverId}`)
+        // console.log(response)
         return response.data
 
     } catch (error) {
-        console.error(error?.response?.data?.errMessage)
+        console.error(error)
+        // console.error(error?.response?.data?.errMessage)
         const errorOutput = error?.response?.data?.errMessage;
         toast.error(errorOutput);
         return rejectWithValue(errorOutput);

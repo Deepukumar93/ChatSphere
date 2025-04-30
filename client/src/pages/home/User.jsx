@@ -5,7 +5,7 @@ import {setSelectedUser} from '../../store/slice/user/user.slice'
 const User = ({ userDetails }) => {
   const dispatch = useDispatch();
   const {selectedUser} = useSelector((state)=>state.userReducer);
-  console.log(selectedUser)
+  // console.log(selectedUser)
 
   // console.log(userDetails);
   const handleUserClick=()=>{
