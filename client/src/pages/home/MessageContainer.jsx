@@ -11,11 +11,11 @@ const MessageContainer = () => {
   const dispatch = useDispatch();
   const { selectedUser } = useSelector((state) => state.userReducer);
   const { messages } = useSelector((state) => state.messageReducer);
-  console.log(messages)
+  // console.log(messages, "Anand")
 
   useEffect(() => {
     if (selectedUser?._id) {
-      dispatch(getMessageThunk({ receiverId: selectedUser?._id }));
+      dispatch(getMessageThunk({ recieverId: selectedUser?._id }));
     }
   }, [selectedUser]);
 
@@ -24,18 +24,30 @@ const MessageContainer = () => {
     <>
       {!selectedUser ? (
         <p>please select user</p>
+
       ) : (
+
         <div className="h-screen w-full flex flex-col">
           <div className=" p-2 border-b border-b-white/10">
             <User userDetails={selectedUser} />
           </div>
-          <div className='h-full overflow-y-auto'>
+
+          {/* <div className='h-full overflow-y-auto'>
             {messages?.map((messageDetails) => {
               return <Message key={messageDetails?._id} messageDetails={messageDetails} />;
             })}
-
-
+          </div> */}
+          <div className='h-full overflow-y-auto'>
+            {messages?.length === 0 ? (
+              <p className="text-center mt-4 text-gray-400">No messages yet</p>
+            ) : (
+              messages?.map((messageDetails) => (
+                <Message key={messageDetails?._id} messageDetails={messageDetails} />
+              ))
+            )}
           </div>
+
+
           <div>
             <div className="w-full p-3 flex gap-2">
               <input
@@ -44,7 +56,7 @@ const MessageContainer = () => {
                 className="input input-bordered input-primary w-full "
               />
 
-              <button class="btn btn-square btn-outline bg-primary">
+              <button className="btn btn-square btn-outline bg-primary">
                 <IoMdSend />
               </button>
             </div>

@@ -5,27 +5,27 @@ import errorHandler from "../utilities/errorHandler.utility.js";
 
 export const sendMessage = asyncHandler(async (req, res, next) => {
     const senderId = req.user._id;
-    const receiverId = req.params.receiverId;
+    const recieverId = req.params.recieverId;
     const message = req.body.message;
     // console.log(senderId,receiverId,message)
 
-    if (!senderId || !receiverId || !message) {
+    if (!senderId || !recieverId || !message) {
         return next(new errorHandler("All fields are required", 400));
     }
 
     let conversation = await Conversation.findOne({
-        participants: { $all: [senderId, receiverId] },
+        participants: { $all: [senderId, recieverId] },
     });
 
     if (!conversation) {
         conversation = await Conversation.create({
-            participants: [senderId, receiverId],
+            participants: [senderId, recieverId],
         });
     }
 
     const newMessage = await Message.create({
         senderId,
-        receiverId,
+        recieverId,
         message,
     });
 
