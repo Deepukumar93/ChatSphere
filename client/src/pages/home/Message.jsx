@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Message = ({messageDetails}) => {
-    console.log(messageDetails)
+    // console.log(messageDetails)
     
     return (
         <>
@@ -15,8 +15,10 @@ const Message = ({messageDetails}) => {
                     </div>
                 </div>
                 <div className="chat-header">
-                    Obi-Wan Kenobi
-                    <time className="text-xs opacity-50">12:45</time>
+                    
+                    
+                   {messageDetails?.name} 
+                    <time className="text-xs opacity-50">{messageDetails?.createdAt}</time>
                 </div>
                 <div className="chat-bubble">{messageDetails?.message}!</div>
                 <div className="chat-footer opacity-50">Delivered</div>

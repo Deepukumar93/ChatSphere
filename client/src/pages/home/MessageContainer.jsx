@@ -23,7 +23,9 @@ const MessageContainer = () => {
   return (
     <>
       {!selectedUser ? (
-        <p>please select user</p>
+        <div className="flex  flex-row mt-5 pl-10 h-screen">
+        <p className=" text-gray-400">No messages yet</p>
+      </div>
 
       ) : (
 
@@ -31,12 +33,6 @@ const MessageContainer = () => {
           <div className=" p-2 border-b border-b-white/10">
             <User userDetails={selectedUser} />
           </div>
-
-          {/* <div className='h-full overflow-y-auto'>
-            {messages?.map((messageDetails) => {
-              return <Message key={messageDetails?._id} messageDetails={messageDetails} />;
-            })}
-          </div> */}
           <div className='h-full overflow-y-auto'>
             {messages?.length === 0 ? (
               <p className="text-center mt-4 text-gray-400">No messages yet</p>
