@@ -56,6 +56,7 @@ export const logoutUserThunk = createAsyncThunk("user/logout", async (_, { rejec
         //     password,
         //     gender)
         toast.success("logout Successfully!")
+        
         // console.log(response)
         return response.data
 

@@ -5,6 +5,7 @@ import { IoMdSend } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getMessageThunk } from '../../store/slice/message/message.thunk';
+import SendMessage from './SendMessage';
 
 const MessageContainer = () => {
 
@@ -23,9 +24,11 @@ const MessageContainer = () => {
   return (
     <>
       {!selectedUser ? (
-        <div className="flex  flex-row mt-5 pl-10 h-screen">
-        <p className=" text-gray-400">No messages yet</p>
-      </div>
+      <div className=" w-full flex items-center justify-center flex-col gap-5">
+      <h2>Welcome to Chat Sphere</h2>
+      <p className='text-xl'>Please select a person to continue your chat</p>
+    </div>
+    
 
       ) : (
 
@@ -35,28 +38,14 @@ const MessageContainer = () => {
           </div>
           <div className='h-full overflow-y-auto'>
             {messages?.length === 0 ? (
-              <p className="text-center mt-4 text-gray-400">No messages yet</p>
+              <p className=" text-center mt-4 text-gray-400">No messages yet</p>
             ) : (
               messages?.map((messageDetails) => (
                 <Message key={messageDetails?._id} messageDetails={messageDetails} />
               ))
             )}
           </div>
-
-
-          <div>
-            <div className="w-full p-3 flex gap-2">
-              <input
-                type="text"
-                placeholder="Type here....."
-                className="input input-bordered input-primary w-full "
-              />
-
-              <button className="btn btn-square btn-outline bg-primary">
-                <IoMdSend />
-              </button>
-            </div>
-          </div>
+          <SendMessage />
         </div>
       )}
     </>

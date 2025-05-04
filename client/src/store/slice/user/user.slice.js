@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUserThunk, registerUserThunk,logoutUserThunk,getUserProfileThunk,getOtherUserThunk } from './user.thunk';
+import { loginUserThunk, registerUserThunk, logoutUserThunk, getUserProfileThunk, getOtherUserThunk } from './user.thunk';
 
 const initialState = {
   isAuthenticated: false,
-  otherUsers:null,
+  otherUsers: null,
   userProfile: null,
-  selectedUser:null,
+  selectedUser: JSON.parse(localStorage.getItem("selectedUser")),
   buttonLoading: false,
   screenLoading: true
 };
@@ -15,9 +15,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setSelectedUser: (state, action) => {
+      localStorage.setItem("selectedUser",JSON.stringify(action.payload))
       state.selectedUser = action.payload;
     },
-    
+
 
   },
   extraReducers: (builder) => {
@@ -35,8 +36,8 @@ export const userSlice = createSlice({
       state.buttonLoading = false
     });
 
-     // Registration user
-     builder.addCase(registerUserThunk.pending, (state, action) => {
+    // Registration user
+    builder.addCase(registerUserThunk.pending, (state, action) => {
       state.buttonLoading = true
     });
     builder.addCase(registerUserThunk.fulfilled, (state, action) => {
@@ -48,14 +49,17 @@ export const userSlice = createSlice({
       state.buttonLoading = false
     });
 
-     // Logout user
-     builder.addCase(logoutUserThunk.pending, (state, action) => {
+    // Logout user
+    builder.addCase(logoutUserThunk.pending, (state, action) => {
       state.buttonLoading = true
     });
     builder.addCase(logoutUserThunk.fulfilled, (state, action) => {
       state.userProfile = null
+      state.selectedUser = null;
+      state.otherUsers = null;
       state.isAuthenticated = false
       state.buttonLoading = false
+      localStorage.clear()
     });
     builder.addCase(logoutUserThunk.rejected, (state, action) => {
       state.buttonLoading = false
@@ -66,7 +70,7 @@ export const userSlice = createSlice({
       state.screenLoading = false
     });
     builder.addCase(getOtherUserThunk.fulfilled, (state, action) => {
-      state.otherUsers  = action.payload?.responseData
+      state.otherUsers = action.payload?.responseData
       state.screenLoading = false
       // console.log(action.payload)
     });
@@ -81,6 +85,7 @@ export const userSlice = createSlice({
     builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
       state.isAuthenticated = true
       state.screenLoading = false
+      state.userProfile = action.payload?.responseData
       // console.log(action.payload)
     });
     builder.addCase(getUserProfileThunk.rejected, (state, action) => {
@@ -91,6 +96,6 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { setSelectedUser} = userSlice.actions
+export const { setSelectedUser } = userSlice.actions
 
 export default userSlice.reducer

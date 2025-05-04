@@ -19,6 +19,7 @@ export const messageSlice = createSlice({
       state.buttonLoading = true
     });
     builder.addCase(sendMessageThunk.fulfilled, (state, action) => {
+      state.messages = [...state.messages ,action.payload?.responseData]
       state.buttonLoading = false
     });
     builder.addCase(sendMessageThunk.rejected, (state, action) => {

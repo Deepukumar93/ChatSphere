@@ -4,19 +4,21 @@ import { axiosInstance } from "../../../components/utilities/axiosInstance";
 
 export const sendMessageThunk = createAsyncThunk("message/send", async ({ recieverId, message }, { rejectWithValue }) => {
     try {
-        // await axiosInstance.post(`/message/send-message`, { receiverId, message });
-        await axiosInstance.post(`/user/login`, { recieverId, message });
-        console.log("api data fetch", response.data)
-        return response.data
+        if (!recieverId) {
+            toast.error("Receiver ID is missing");
+            return rejectWithValue("Receiver ID is missing");
+        }
 
+        const response = await axiosInstance.post(`/message/send/${recieverId}`, { message });
+        return response.data;
     } catch (error) {
-        console.error(error)
+        console.error(error);
         const errorOutput = error?.response?.data?.errMessage;
         toast.error(errorOutput);
         return rejectWithValue(errorOutput);
-
     }
 });
+
 
 export const getMessageThunk = createAsyncThunk("message/get", async ({ recieverId, }, { rejectWithValue }) => {
     try {
