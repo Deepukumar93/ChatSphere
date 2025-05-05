@@ -1,12 +1,13 @@
-import dotenv from 'dotenv'
-dotenv.config();
+import {app,server} from './socket/socket.js'
 import  express from 'express';
 import { connectDB } from './db/connection1.db.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
+
+
 connectDB();
 
-const app = express();
+// const app = express();
 app.use(cors({
     // origin:['http://localhost:5173'],
     origin: [process.env.CLIENT_URL],
@@ -32,7 +33,7 @@ app.use(errorMiddleware);
 
 
 
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
     console.log(` server start at port ${PORT}`)
 })
 
