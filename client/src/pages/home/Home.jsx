@@ -27,7 +27,12 @@ useEffect(() => {
     console.log(onlineUsers);
     // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });
+  return()=>{
+    socket.close()
+  }
 }, [socket]);
+
+
 
 
   return (

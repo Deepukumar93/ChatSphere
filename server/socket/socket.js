@@ -37,6 +37,12 @@ io.on("connection", (socket) => {
   usersocketMap[userId] = socket.id
   console.log(`✅ Socket connected: ${socket.id}`);
   io.emit("onlineUsers",Object.keys(usersocketMap))
+
+  socket.on("disconnect", () => {
+    delete userSocketMap[userId];  // userId should be captured earlier from the socket
+    io.emit("onlineUsers", Object.keys(userSocketMap));
+  });
+  
 });
 
 // Export the app and server to be used in your main server file
