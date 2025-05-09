@@ -1,49 +1,46 @@
 import dotenv from 'dotenv';
-dotenv.config(); // Load environment variables
+dotenv.config();
 
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
 
-// Create express app
 const app = express();
-
-// Create HTTP server
 const server = http.createServer(app);
 
-// Check if CLIENT_URL is loaded correctly
 if (!process.env.CLIENT_URL) {
   console.error("❌ CLIENT_URL is not defined in your .env file");
-  process.exit(1); // Exit the process
+  process.exit(1);
 }
 
-// Create Socket.io server with CORS config
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL,
-    credentials: true, // Important if using cookies/auth
+    credentials: true,
   },
 });
 
-const usersocketMap ={
+// ✅ Global map and utility
+const userSocketMap = {};
 
-}
+const getSocketId = (userId) => {
+  return userSocketMap[userId];
+};
 
-// Socket connection
+// ✅ Socket connection
 io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
-  if(!userId)return
+  if (!userId) return;
 
-  usersocketMap[userId] = socket.id
+  userSocketMap[userId] = socket.id;
   console.log(`✅ Socket connected: ${socket.id}`);
-  io.emit("onlineUsers",Object.keys(usersocketMap))
+  io.emit("onlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
-    delete userSocketMap[userId];  // userId should be captured earlier from the socket
+    delete userSocketMap[userId];
     io.emit("onlineUsers", Object.keys(userSocketMap));
   });
-  
 });
 
-// Export the app and server to be used in your main server file
-export { io, app, server };
+// ✅ Export everything cleanly
+export { io, app, server, getSocketId };

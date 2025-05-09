@@ -1,33 +1,46 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {setSelectedUser} from '../../store/slice/user/user.slice'
+import { setSelectedUser } from '../../store/slice/user/user.slice'
 
 const User = ({ userDetails }) => {
   const dispatch = useDispatch();
-  const {selectedUser} = useSelector((state)=>state.userReducer);
+  const { selectedUser } = useSelector((state) => state.userReducer);
   const { onlineUsers } = useSelector(state => state.socketReducer);
+  // console.log(onlineUsers)
 
-  const  isUseronline = onlineUsers?.includes(userDetails?._id);
+  const isUseronline = onlineUsers?.includes(userDetails?._id);
   // console.log(selectedUser)
 
   // console.log(userDetails);
-  const handleUserClick=()=>{
+  const handleUserClick = () => {
     dispatch(setSelectedUser(userDetails))
   }
 
   return (
-    <div onClick={handleUserClick} 
-    className={`flex gap-5 items-center hover:bg-gray-700 rounded-lg py-1 px-2 cursor-pointer${userDetails?._id === selectedUser?._id && 'bg-gray-700'}`}>
-      <div className={`avatar${isUseronline && online}`}>
-        <div className="w-12 rounded-full">
-          <img src={userDetails?.avatar}alt="User Avatar" />
+    <div
+    onClick={handleUserClick}
+    className={`flex gap-5 items-center hover:bg-gray-700 rounded-lg py-1 px-2 cursor-pointer ${
+      userDetails?._id === selectedUser?._id ? 'bg-gray-700' : ''
+    }`}
+  >
+    <div className="relative w-12 h-12">
+      {isUseronline && (
+        <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full z-10"></span>
+      )}
+      <div className="avatar">
+        <div className="w-12 h-12 rounded-full">
+          <img src={userDetails?.avatar} alt="User Avatar" />
         </div>
       </div>
-      <div>
-        <h2 className="line-clamp-1">{userDetails?.fullName}</h2>
-        <p className="text-xs">{userDetails?.username}</p>
-      </div>
     </div>
+  
+    <div>
+      <h2 className="line-clamp-1">{userDetails?.fullName}</h2>
+      <p className="text-xs">{userDetails?.username}</p>
+    </div>
+  </div>
+  
+
   );
 };
 

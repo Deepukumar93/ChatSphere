@@ -15,16 +15,20 @@ const Home = () => {
 
   useEffect(()=>{
     if(!isAuthenticated)return;
-    dispatch(initializeSocket(userProfile?.id));
+    dispatch(initializeSocket(userProfile?._id));
   },[isAuthenticated])
 
   
-
 useEffect(() => {
-  if(!socket)return;
+  if(!socket) return;
   socket.on("onlineUsers", (onlineUsers) => {
     dispatch( setOnlineUser(onlineUsers))
     console.log(onlineUsers);
+    // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
+  });
+  socket.on("newMessage", (newMessage) => {
+    // dispatch( setOnlineUser(newMessage))
+    console.log(newMessage,"hiii");
     // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });
   return()=>{
