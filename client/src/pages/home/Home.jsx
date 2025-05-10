@@ -29,7 +29,7 @@ useEffect(() => {
   socket.on("newMessage", (newMessage) => {
     // dispatch( setOnlineUser(newMessage))
     console.log(newMessage,"hiii");
-    // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
+    state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });
   return()=>{
     socket.close()
