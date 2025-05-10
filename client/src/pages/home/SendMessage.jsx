@@ -18,16 +18,24 @@ const SendMessage = () => {
     
         dispatch(sendMessageThunk({ recieverId: selectedUser._id, message }));
         // console.log("Receiver ID:", selectedUser._id);
-        setMessage('');
+        setMessage("");
     }
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSendMessage();
+        }
+    };
+
     
     return (
         <div className="w-full p-3 flex gap-2">
             <input
                 type="text"
+                value={message}
                 placeholder="Type here....."
                 className="input input-bordered input-primary w-full "
                 onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
             />
             <button onClick={handleSendMessage} className="btn btn-square btn-outline bg-primary">
                 <IoMdSend />

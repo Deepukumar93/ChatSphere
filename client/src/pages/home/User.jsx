@@ -6,10 +6,10 @@ const User = ({ userDetails }) => {
   const dispatch = useDispatch();
   const { selectedUser } = useSelector((state) => state.userReducer);
   const { onlineUsers } = useSelector(state => state.socketReducer);
-  // console.log(onlineUsers)
+  console.log(onlineUsers)
 
-  const isUseronline = onlineUsers?.includes(userDetails?._id);
-  // console.log(selectedUser)
+  const isUserOnline = onlineUsers?.includes(userDetails?._id);
+  console.log(selectedUser)
 
   // console.log(userDetails);
   const handleUserClick = () => {
@@ -24,7 +24,7 @@ const User = ({ userDetails }) => {
     }`}
   >
     <div className="relative w-12 h-12">
-      {isUseronline && (
+      {isUserOnline && (
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full z-10"></span>
       )}
       <div className="avatar">

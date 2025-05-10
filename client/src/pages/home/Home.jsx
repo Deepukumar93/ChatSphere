@@ -3,7 +3,7 @@ import UserSidebar from './UserSidebar'
 import MessageContainer from './MessageContainer'
 // import io from socket.io-client
 import { useDispatch, useSelector } from 'react-redux'
-import { initializeSocket, setOnlineUser, } from '../../store/slice/socket/socket.slice'
+import { initializeSocket, setOnlineUsers, } from '../../store/slice/socket/socket.slice'
 
 const Home = () => {
 
@@ -14,7 +14,7 @@ const Home = () => {
   console.log(onlineUsers)
 
   useEffect(()=>{
-    if(!isAuthenticated)return;
+    if(!isAuthenticated) return;
     dispatch(initializeSocket(userProfile?._id));
   },[isAuthenticated])
 
@@ -22,18 +22,19 @@ const Home = () => {
 useEffect(() => {
   if(!socket) return;
   socket.on("onlineUsers", (onlineUsers) => {
-    dispatch( setOnlineUser(onlineUsers))
+    dispatch( setOnlineUsers(onlineUsers))
     console.log(onlineUsers);
     // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });
   socket.on("newMessage", (newMessage) => {
     // dispatch( setOnlineUser(newMessage))
     console.log(newMessage,"hiii");
-    state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
+    // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });
   return()=>{
     socket.close()
   }
+  
 }, [socket]);
 
 

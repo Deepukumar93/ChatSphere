@@ -23,17 +23,17 @@ const io = new Server(server, {
 // ✅ Global map and utility
 const userSocketMap = {};
 
-const getSocketId = (userId) => {
-  return userSocketMap[userId];
-};
+
 
 // ✅ Socket connection
-io.on("connection", (socket) => {
+io.on("connection", (socket) => { 
   const userId = socket.handshake.query.userId;
+  console.log(socket.handshake.query.userId,"id mil gya")
   if (!userId) return;
 
   userSocketMap[userId] = socket.id;
   console.log(`✅ Socket connected: ${socket.id}`);
+  console.log(Object.keys(userSocketMap),"dono id mil gya")
   io.emit("onlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
@@ -41,6 +41,9 @@ io.on("connection", (socket) => {
     io.emit("onlineUsers", Object.keys(userSocketMap));
   });
 });
+const getSocketId = (userId) => {
+  return userSocketMap[userId];
+};
 
 // ✅ Export everything cleanly
 export { io, app, server, getSocketId };

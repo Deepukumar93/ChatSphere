@@ -15,16 +15,15 @@ export const socketSlice = createSlice({
                 query: {
                     userId: action.payload,
                 }
-            }
-            );
+            });
             state.socket = socket;
         },
-        setOnlineUser:(state,action)=>{
+        setOnlineUsers: (state,action)=>{
             state.onlineUsers = action.payload;
-        } 
+        }, 
     },
 });
 
-export const { initializeSocket,setOnlineUser } = socketSlice.actions;
+export const { initializeSocket,setOnlineUsers } = socketSlice.actions;
 
 export default socketSlice.reducer;
