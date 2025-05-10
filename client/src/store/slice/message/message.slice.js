@@ -11,9 +11,14 @@ const initialState = {
 export const messageSlice = createSlice({
   name: "message",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
+  reducers: {
+    setNewMessage: (state, action) => {
+        const oldMessages = state.messages ?? [];
+        state.messages = [...oldMessages, action.payload];
+    }
+},
 
+  extraReducers: (builder) => {
     // send message
     builder.addCase(sendMessageThunk.pending, (state, action) => {
       state.buttonLoading = true
@@ -43,5 +48,5 @@ export const messageSlice = createSlice({
   },
 });
 
-export const { } = messageSlice.actions
+export const { setNewMessage} = messageSlice.actions
 export default messageSlice.reducer

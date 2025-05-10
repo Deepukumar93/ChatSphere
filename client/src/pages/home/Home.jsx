@@ -4,6 +4,7 @@ import MessageContainer from './MessageContainer'
 // import io from socket.io-client
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeSocket, setOnlineUsers, } from '../../store/slice/socket/socket.slice'
+import { setNewMessage } from '../../store/slice/message/message.slice'
 
 const Home = () => {
 
@@ -27,7 +28,7 @@ useEffect(() => {
     // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });
   socket.on("newMessage", (newMessage) => {
-    // dispatch( setOnlineUser(newMessage))
+    dispatch(setNewMessage(newMessage))
     console.log(newMessage,"hiii");
     // state.onlineUsers = onlineUsers; // Avoid direct state mutation if using React state or Redux
   });

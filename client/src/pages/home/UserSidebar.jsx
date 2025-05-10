@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoIosSearch } from "react-icons/io";
 import User from '../home/User';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,8 @@ import {getOtherUserThunk, logoutUserThunk } from '../../store/slice/user/user.t
 
 const UserSidebar = () => {
 
+    const [searchValue, setSearchValue] = useState('')
+    const [users, setUsers] = useState([])
     const { otherUsers,userProfile } = useSelector(state => state.userReducer)
     // console.log(otherUsers)
     const dispatch = useDispatch();
@@ -13,6 +15,20 @@ const UserSidebar = () => {
         await dispatch(logoutUserThunk());
     };
 
+    useEffect(()=>{
+        if(!searchValue){
+            setUsers(otherUsers)
+        }else{
+            setUsers(
+                otherUsers.filter((user) => {
+                  return (
+                    user.username.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    user.fullName.toLowerCase().includes(searchValue.toLowerCase())
+                  );
+                })
+              );              
+        }
+    },[searchValue, otherUsers])
     useEffect(()=>{
         (async()=>{
             await dispatch(getOtherUserThunk());
@@ -32,12 +48,13 @@ const UserSidebar = () => {
                         type="text"
                         className="w-full bg-transparent border-none focus:outline-none focus:ring-0"
                         placeholder="Search"
+                        onChange={(e)=>setSearchValue(e.target.value)}
                     />
                     <IoIosSearch />
                 </label>
             </div>
             <div className="h-full overflow-y-auto px-3 flex flex-col gap-1">
-                {otherUsers?.map(userDetails => {
+                {users?.map(userDetails => {
                     // console.log(userDetails);
                     return (
                         <User key={userDetails?._id} userDetails={userDetails} />
